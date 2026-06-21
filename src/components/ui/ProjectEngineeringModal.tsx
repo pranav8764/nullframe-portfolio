@@ -69,7 +69,14 @@ export function ProjectEngineeringModal({
   onClose
 }: ProjectEngineeringModalProps) {
   return (
-    <Modal open={Boolean(project)} title={project?.name ?? ""} onClose={onClose}>
+    <Modal
+      closeLabel="Close engineering breakdown"
+      closeTestId="modal-close"
+      eyebrow="engineering.breakdown"
+      open={Boolean(project)}
+      title={project?.name ?? ""}
+      onClose={onClose}
+    >
       {project ? (
         <div className="space-y-5">
           <div className="flex flex-wrap items-center gap-2">

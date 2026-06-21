@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "visual": "playwright test tests/visual-regression.spec.ts"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.0",
@@ -22,6 +23,7 @@
     "three": "^0.171.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61.0",
     "@types/node": "^22.10.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

@@ -3,9 +3,10 @@
 import dynamic from "next/dynamic";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Project } from "@/data/profile";
 import { ProjectEngineeringModal } from "@/components/ui/ProjectEngineeringModal";
+import { ProjectJourneyModal } from "@/components/ui/ProjectJourneyModal";
 import { SystemStatusBar } from "@/components/layout/SystemStatusBar";
 import { BootScreen } from "@/components/sections/BootScreen";
 import { ContactSection } from "@/components/sections/ContactSection";
@@ -20,7 +21,7 @@ import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { ResumeCard } from "@/components/sections/ResumeCard";
 import { SkillsDashboard } from "@/components/sections/SkillsDashboard";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { useScrollProgress } from "@/hooks/useScrollProgress";
+import { useSceneProgress } from "@/hooks/useScrollProgress";
 
 const SceneCanvas = dynamic(
   () => import("@/components/three/SceneCanvas").then((module) => module.SceneCanvas),
@@ -37,10 +38,18 @@ const SceneCanvas = dynamic(
 );
 
 export function PortfolioExperience() {
-  const progress = useScrollProgress();
+  const progress = useSceneProgress();
   const reducedMotion = useReducedMotion();
   const [bootVisible, setBootVisible] = useState(true);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedJourneyProject, setSelectedJourneyProject] = useState<Project | null>(
+    null
+  );
+  const [cityLabelPortal, setCityLabelPortal] = useState<HTMLDivElement | null>(null);
+  const cityLabelPortalRef = useMemo(
+    () => ({ current: cityLabelPortal }),
+    [cityLabelPortal]
+  );
 
   useEffect(() => {
     const timer = window.setTimeout(() => setBootVisible(false), 3400);
@@ -83,13 +92,24 @@ export function PortfolioExperience() {
   return (
     <>
       <BootScreen visible={bootVisible} onSkip={() => setBootVisible(false)} />
-      <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <SceneCanvas progress={progress} />
+      <div
+        aria-hidden="true"
+        className="fixed inset-0 overflow-hidden"
+        style={{
+          zIndex: progress.cityProgress > 0.05 && progress.cityProgress < 0.95 ? 20 : 0,
+          pointerEvents: progress.cityProgress > 0.05 && progress.cityProgress < 0.95 ? 'auto' : 'none'
+        }}
+      >
+        <SceneCanvas
+          htmlPortal={cityLabelPortalRef}
+          progress={progress}
+          onOpenProject={setSelectedJourneyProject}
+        />
       </div>
       <main className="relative z-10">
         <HeroSection onInspect={inspectSystems} />
         <MissionSection />
-        <ProductCitySection />
+        <ProductCitySection onOpenProject={setSelectedJourneyProject} />
         <SkillsDashboard />
         <ExperienceModule />
         <ProjectsSection onOpenProject={setSelectedProject} />
@@ -99,11 +119,21 @@ export function PortfolioExperience() {
         <ResumeCard />
         <ContactSection />
       </main>
+      <div
+        aria-label="Project journey tower labels"
+        className="fixed inset-0 z-30"
+        style={{ pointerEvents: 'none' }}
+        ref={setCityLabelPortal}
+      />
       <ProjectEngineeringModal
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
       />
-      <SystemStatusBar progress={progress} visible={!bootVisible} />
+      <ProjectJourneyModal
+        project={selectedJourneyProject}
+        onClose={() => setSelectedJourneyProject(null)}
+      />
+      <SystemStatusBar progress={progress.pageProgress} visible={!bootVisible} />
     </>
   );
 }

@@ -10,6 +10,10 @@ type ParticleDissolveProps = {
   reducedMotion: boolean;
 };
 
+function clamp01(value: number) {
+  return Math.min(1, Math.max(0, value));
+}
+
 export function ParticleDissolve({
   count,
   progress,
@@ -30,15 +34,16 @@ export function ParticleDissolve({
   }, [count]);
 
   useFrame(({ clock }) => {
-    const dissolve = Math.min(1, Math.max(0, (progress - 0.06) / 0.22));
+    const dissolve = clamp01((progress - 0.055) / 0.14);
+    const cityFadeOut = clamp01((progress - 0.108) / 0.042);
     const points = pointsRef.current;
     const material = materialRef.current;
     if (!points || !material) return;
 
-    points.visible = dissolve > 0.02 && dissolve < 0.96;
+    points.visible = dissolve > 0.02 && cityFadeOut < 0.96;
     points.rotation.y = reducedMotion ? 0 : clock.elapsedTime * 0.08;
-    points.scale.setScalar(1 + dissolve * 4.8);
-    material.opacity = Math.sin(dissolve * Math.PI) * 0.74;
+    points.scale.setScalar(1 + dissolve * 4.1);
+    material.opacity = Math.sin(dissolve * Math.PI) * 0.62 * (1 - cityFadeOut);
   });
 
   return (

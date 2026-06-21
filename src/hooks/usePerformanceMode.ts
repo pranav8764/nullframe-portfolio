@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export type PerformanceMode = {
   dpr: [number, number];
+  minimalScene: boolean;
   particleCount: number;
   shadows: boolean;
 };
@@ -11,6 +12,7 @@ export type PerformanceMode = {
 export function usePerformanceMode(): PerformanceMode {
   const [mode, setMode] = useState<PerformanceMode>({
     dpr: [1, 1.8],
+    minimalScene: false,
     particleCount: 2800,
     shadows: true
   });
@@ -23,6 +25,7 @@ export function usePerformanceMode(): PerformanceMode {
 
     setMode({
       dpr: low ? [1, 1.35] : [1, 2],
+      minimalScene: low,
       particleCount: low ? 800 : 3600,
       shadows: !low
     });

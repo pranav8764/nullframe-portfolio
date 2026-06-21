@@ -10,9 +10,21 @@ type ModalProps = {
   onClose: () => void;
   children: React.ReactNode;
   className?: string;
+  closeLabel?: string;
+  eyebrow?: string;
+  closeTestId?: string;
 };
 
-export function Modal({ open, title, onClose, children, className }: ModalProps) {
+export function Modal({
+  open,
+  title,
+  onClose,
+  children,
+  className,
+  closeLabel = "Close modal",
+  eyebrow = "system.panel",
+  closeTestId = "modal-close"
+}: ModalProps) {
   const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -54,7 +66,7 @@ export function Modal({ open, title, onClose, children, className }: ModalProps)
         <div className="mb-5 flex items-start justify-between gap-4">
           <div>
             <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-null-amber">
-              engineering.breakdown
+              {eyebrow}
             </p>
             <h2 id="modal-title" className="mt-2 text-2xl font-semibold">
               {title}
@@ -62,9 +74,9 @@ export function Modal({ open, title, onClose, children, className }: ModalProps)
           </div>
           <button
             ref={closeRef}
-            aria-label="Close engineering breakdown"
+            aria-label={closeLabel}
             className="rounded-md border border-null-border bg-white/[0.04] p-2 text-null-muted transition hover:border-null-amber hover:text-null-text"
-            data-testid="modal-close"
+            data-testid={closeTestId}
             type="button"
             onClick={onClose}
           >

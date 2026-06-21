@@ -26,6 +26,17 @@ export type Project = {
   githubUrl?: string;
   liveUrl?: string;
   sourceNote?: string;
+  journey?: ProjectJourney;
+};
+
+export type ProjectJourney = {
+  status: string;
+  intro: string;
+  chapters: Array<{
+    label: string;
+    title: string;
+    body: string;
+  }>;
 };
 
 export type SkillModule = {
@@ -450,7 +461,7 @@ export const projects: Project[] = [
       "Domain-specific dental assistant exploration for clinical workflows and data-driven answers.",
     compactDescription:
       "Dental clinic assistant concept for workflow, reports, appointments, and database-backed assistance.",
-    techStack: ["TODO: confirm stack"],
+    techStack: ["Stack verification pending"],
     highlights: [
       "Dental domain AI exploration",
       "Assistant-style workflow",
@@ -464,22 +475,22 @@ export const projects: Project[] = [
     problem:
       "Dental clinics need assistance flows that can connect operational data, patient-facing work, and answers without inventing medical context.",
     constraints: [
-      "TODO: confirm stack",
-      "TODO: confirm core features",
-      "TODO: confirm live/demo status"
+      "Stack details are waiting for repository confirmation.",
+      "Core feature list is waiting for a verified project note.",
+      "Live/demo status is waiting for confirmation."
     ],
     architecture:
       "Positioned as an AI product exploration for dental clinic workflows, invoices, appointments, reports, and database-backed assistance. Implementation details are intentionally withheld until the repository content confirms them.",
     systemDesign: [
-      "TODO: confirm data sources",
-      "TODO: confirm assistant workflow",
-      "TODO: confirm persistence model"
+      "Data source map pending verification.",
+      "Assistant workflow pending verification.",
+      "Persistence model pending verification."
     ],
-    failureHandling: ["TODO: confirm failure handling"],
+    failureHandling: ["Failure handling notes pending verification."],
     tradeoffs: [
       "The product direction is promising, but unverified implementation claims would be misleading."
     ],
-    measuredImpact: ["TODO: confirm measurable impact"],
+    measuredImpact: ["Measured impact pending verification."],
     improvements: [
       "Confirm stack from repository or project notes",
       "Add verified architecture details",

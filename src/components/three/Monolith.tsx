@@ -16,7 +16,7 @@ export function Monolith({ progress, reducedMotion }: MonolithProps) {
     const mesh = meshRef.current;
     if (!mesh) return;
 
-    const dissolve = Math.min(1, Math.max(0, (progress - 0.05) / 0.18));
+    const dissolve = Math.min(1, Math.max(0, (progress - 0.05) / 0.12));
     const material = mesh.material as MeshStandardMaterial;
     material.opacity = Math.max(0, 1 - dissolve * 1.2);
     mesh.visible = material.opacity > 0.04;
