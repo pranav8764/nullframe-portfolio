@@ -19,6 +19,7 @@ export function SectionFrame({
 }: SectionFrameProps) {
   return (
     <section
+      aria-label={props["aria-label"] || eyebrow}
       className={cn("relative mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8", className)}
       id={id}
       {...props}

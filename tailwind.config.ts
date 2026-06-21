@@ -10,12 +10,12 @@ const config: Config = {
     extend: {
       colors: {
         null: {
-          black: "#050505",
-          surface: "#0A0A0A",
-          card: "#111111",
-          border: "#27272A",
-          text: "#F5F5F5",
-          muted: "#A3A3A3",
+          black: "#121212",
+          surface: "#1E1E1E",
+          card: "#242424",
+          border: "#333333",
+          text: "#FCFCFC",
+          muted: "#D4D4D4",
           amber: "#F59E0B"
         }
       },

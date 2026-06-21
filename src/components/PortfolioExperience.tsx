@@ -41,6 +41,7 @@ export function PortfolioExperience() {
   const progress = useSceneProgress();
   const reducedMotion = useReducedMotion();
   const [bootVisible, setBootVisible] = useState(true);
+  const [staticMode, setStaticMode] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedJourneyProject, setSelectedJourneyProject] = useState<Project | null>(
     null
@@ -103,8 +104,18 @@ export function PortfolioExperience() {
         <SceneCanvas
           htmlPortal={cityLabelPortalRef}
           progress={progress}
+          staticMode={staticMode}
           onOpenProject={setSelectedJourneyProject}
         />
+      </div>
+      <div className="fixed right-4 top-4 z-50">
+        <button
+          className="rounded-full border border-null-border bg-black/60 px-3 py-1.5 font-mono text-[0.65rem] uppercase tracking-widest text-null-muted backdrop-blur-md transition hover:border-null-amber hover:text-null-amber"
+          type="button"
+          onClick={() => setStaticMode((prev) => !prev)}
+        >
+          {staticMode ? "Enable 3D" : "Static Mode"}
+        </button>
       </div>
       <main className="relative z-10">
         <HeroSection onInspect={inspectSystems} />

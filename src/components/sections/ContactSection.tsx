@@ -46,6 +46,15 @@ export function ContactSection() {
           ) : null}
         </div>
       </GlassCard>
+      
+      <div className="mt-16 text-center">
+        <p className="text-xs text-null-muted/60">
+          Built with accessibility in mind. Respects reduced motion, high contrast needs, and screen reader navigation.{" "}
+          <button className="underline hover:text-null-amber" type="button" onClick={() => alert("Accessibility Statement: NullFrame Systems is committed to inclusive design, providing a 2D fallback for WebGL content, maintaining AA contrast ratios, supporting reduced motion preferences, and adhering to ARIA semantics.")}>
+            View Accessibility Statement
+          </button>
+        </p>
+      </div>
     </SectionFrame>
   );
 }

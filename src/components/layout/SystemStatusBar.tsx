@@ -37,9 +37,20 @@ export function SystemStatusBar({ progress, visible }: SystemStatusBarProps) {
         <span className="truncate">
           {state.text} | scroll: {percent}%
         </span>
-        <span className="hidden text-null-amber sm:inline">
-          {STATUS_MESSAGES[messageIndex]}
-        </span>
+        <div className="flex items-center gap-4">
+          <span className="hidden text-null-amber sm:inline">
+            {STATUS_MESSAGES[messageIndex]}
+          </span>
+          <div className="hidden items-center gap-3 border-l border-null-border pl-4 md:flex">
+            <a className="transition hover:text-null-amber" href="#monolith">Hero</a>
+            <a className="transition hover:text-null-amber" href="#city">City</a>
+            <a className="transition hover:text-null-amber" href="#experience">Experience</a>
+            <a className="transition hover:text-null-amber" href="#projects">Projects</a>
+            <button className="transition hover:text-null-text" type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+              [Top]
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -24,9 +24,9 @@ export function usePerformanceMode(): PerformanceMode {
     const low = mobile || memory <= 4 || cores <= 4;
 
     setMode({
-      dpr: low ? [1, 1.35] : [1, 2],
+      dpr: low ? [0.7, 1.2] : [1, 2],
       minimalScene: low,
-      particleCount: low ? 800 : 3600,
+      particleCount: low ? 400 : 3600,
       shadows: !low
     });
   }, []);

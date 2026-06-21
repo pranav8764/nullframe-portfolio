@@ -22,8 +22,14 @@ export function ProductCitySection({ onOpenProject }: ProductCitySectionProps) {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_66%_52%,transparent_0%,transparent_58%,rgba(5,5,5,0.42)_86%,#050505_100%)]" />
 
         <div className="sr-only">
-          NullFrame product campus. Project names are attached to their buildings.
-          Select a building to open its project journey.
+          <p>NullFrame product campus. Project names are attached to their buildings. Select a building to open its project journey.</p>
+          <ul>
+            {cityProjects.map((project) => (
+              <li key={`sr-${project.id}`}>
+                {project.buildingName}: {project.name}. Status: {project.status}. {project.compactDescription}
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="relative z-10 grid w-full gap-3 self-start md:hidden">

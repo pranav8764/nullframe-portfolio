@@ -12,10 +12,12 @@ import { usePerformanceMode } from "@/hooks/usePerformanceMode";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import type { SceneProgress } from "@/hooks/useScrollProgress";
 import { projectCityConfig } from "@/data/projectCityConfig";
+import { BlueprintFallback } from "@/components/three/BlueprintFallback";
 
 type SceneCanvasProps = {
   htmlPortal?: RefObject<HTMLElement | null>;
   progress: SceneProgress;
+  staticMode?: boolean;
   onOpenProject?: (project: Project) => void;
 };
 
@@ -29,7 +31,7 @@ function hasWebGL() {
   );
 }
 
-export function SceneCanvas({ htmlPortal, progress, onOpenProject }: SceneCanvasProps) {
+export function SceneCanvas({ htmlPortal, progress, staticMode, onOpenProject }: SceneCanvasProps) {
   const reducedMotion = useReducedMotion();
   const performance = usePerformanceMode();
   const [available, setAvailable] = useState(true);
@@ -38,19 +40,14 @@ export function SceneCanvas({ htmlPortal, progress, onOpenProject }: SceneCanvas
     setAvailable(hasWebGL());
   }, []);
 
-  if (!available) {
-    return (
-      <div className="absolute inset-0 flex items-center justify-center bg-null-black">
-        <p className="rounded-lg border border-null-border bg-black/70 px-4 py-3 font-mono text-xs uppercase tracking-[0.16em] text-null-muted">
-          3D system unavailable. Static architecture mode loaded.
-        </p>
-      </div>
-    );
+  if (!available || staticMode || reducedMotion) {
+    return <BlueprintFallback onOpenProject={onOpenProject} />;
   }
 
   return (
     <div className="absolute inset-0">
       <Canvas
+        frameloop="demand"
         camera={{ fov: 44, position: [0, 3.2, 12] }}
         dpr={performance.dpr}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}

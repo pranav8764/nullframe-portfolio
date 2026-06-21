@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { ExternalLink } from "lucide-react";
 import type { Project } from "@/data/profile";
 import { Badge } from "@/components/ui/Badge";
@@ -8,6 +9,7 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import { Modal } from "@/components/ui/Modal";
 import { StatusPill } from "@/components/ui/StatusPill";
 import { TerminalText } from "@/components/ui/TerminalText";
+import { cn } from "@/lib/cn";
 
 type ProjectEngineeringModalProps = {
   project: Project | null;
@@ -35,7 +37,11 @@ function HolographicArchitecture({ project }: { project: Project }) {
   const nodes = ["Client", "Gateway", "Realtime / Queue", "Worker", "DB / Cache"];
 
   return (
-    <div className="architecture-grid relative min-h-[300px] overflow-hidden rounded-lg border border-null-border bg-black/45 p-4">
+    <div 
+      className="architecture-grid relative min-h-[300px] overflow-hidden rounded-lg border border-null-border bg-black/45 p-4"
+      role="img"
+      aria-label={`Holographic architecture diagram for ${project.name} showing system nodes: Client, Gateway, Realtime / Queue, Worker, DB / Cache.`}
+    >
       <div className="absolute inset-x-0 top-1/2 h-px bg-null-amber/35" />
       <div className="relative grid h-full min-h-[260px] grid-cols-1 items-center gap-3 sm:grid-cols-5">
         {nodes.map((node, index) => (
@@ -68,6 +74,8 @@ export function ProjectEngineeringModal({
   project,
   onClose
 }: ProjectEngineeringModalProps) {
+  const [activeTab, setActiveTab] = useState<"summary" | "architecture" | "details">("summary");
+
   return (
     <Modal
       closeLabel="Close engineering breakdown"
@@ -115,7 +123,37 @@ export function ProjectEngineeringModal({
             </GlassCard>
           ) : null}
 
-          <div className="grid gap-5 lg:grid-cols-[0.8fr_1.4fr_0.9fr]">
+          <div className="md:hidden flex border-b border-null-border">
+            <button 
+              className={cn("flex-1 py-2 text-xs font-mono uppercase tracking-widest", activeTab === "summary" ? "text-null-amber border-b-2 border-null-amber" : "text-null-muted")}
+              onClick={() => setActiveTab("summary")}
+            >
+              Summary
+            </button>
+            <button 
+              className={cn("flex-1 py-2 text-xs font-mono uppercase tracking-widest", activeTab === "architecture" ? "text-null-amber border-b-2 border-null-amber" : "text-null-muted")}
+              onClick={() => setActiveTab("architecture")}
+            >
+              System
+            </button>
+            <button 
+              className={cn("flex-1 py-2 text-xs font-mono uppercase tracking-widest", activeTab === "details" ? "text-null-amber border-b-2 border-null-amber" : "text-null-muted")}
+              onClick={() => setActiveTab("details")}
+            >
+              Details
+            </button>
+          </div>
+
+          <div className="space-y-5">
+            <GlassCard className="border-null-amber/20 bg-null-amber/5">
+              <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-null-amber">
+                Why this project matters
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-null-text font-medium">{project.compactDescription}</p>
+            </GlassCard>
+          </div>
+
+          <div className={cn("grid gap-5 lg:grid-cols-[0.8fr_1.4fr_0.9fr]", activeTab !== "summary" && "hidden md:grid")}>
             <div className="space-y-5">
               <GlassCard>
                 <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-null-amber">
@@ -144,7 +182,7 @@ export function ProjectEngineeringModal({
             </GlassCard>
           </div>
 
-          <div className="grid gap-5 md:grid-cols-2">
+          <div className={cn("grid gap-5 md:grid-cols-2", activeTab !== "architecture" && "hidden md:grid")}>
             <GlassCard>
               <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-null-amber">
                 Architecture
@@ -171,6 +209,9 @@ export function ProjectEngineeringModal({
                 <DataList title="Scaling" items={project.scalingApproach} />
               </GlassCard>
             ) : null}
+          </div>
+
+          <div className={cn("grid gap-5 md:grid-cols-2", activeTab !== "details" && "hidden md:grid")}>
             <GlassCard>
               <DataList title="Failure Handling" items={project.failureHandling} />
             </GlassCard>
