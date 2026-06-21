@@ -196,7 +196,8 @@ export const projects: Project[] = [
       "payload.noise: stripped",
       "undo.redo: synchronized"
     ],
-    githubUrl: "https://github.com/pranav8764/Visync"
+    githubUrl: "https://github.com/pranav8764/Visync",
+    liveUrl: "https://visync.vercel.app"
   },
   {
     id: "sentinelapi",
@@ -593,7 +594,7 @@ export const projects: Project[] = [
       "urban.signal: detected"
     ],
     githubUrl: "https://github.com/pranav8764/ParkIntel",
-    liveUrl: "https://park-intel-one.vercel.app",
+    liveUrl: "https://park-intel-blush.vercel.app",
     sourceNote: "Verified from repository README."
   }
 ];
