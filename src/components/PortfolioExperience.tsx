@@ -117,7 +117,7 @@ export function PortfolioExperience() {
           {staticMode ? "Enable 3D" : "Static Mode"}
         </button>
       </div>
-      <main className="relative z-10">
+      <main className="relative z-10 pb-16">
         <HeroSection onInspect={inspectSystems} />
         <MissionSection />
         <ProductCitySection onOpenProject={setSelectedJourneyProject} />
