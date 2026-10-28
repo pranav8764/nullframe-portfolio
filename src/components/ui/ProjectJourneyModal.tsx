@@ -83,7 +83,7 @@ export function ProjectJourneyModal({ project, onClose }: ProjectJourneyModalPro
           <div className="grid gap-4 lg:grid-cols-[1fr_0.8fr]">
             <GlassCard className="p-5">
               <p className="font-mono text-xs uppercase tracking-[0.18em] text-null-amber">
-                verified.signals
+                project.highlights
               </p>
               <div className="mt-4 grid gap-2">
                 {project.highlights.map((highlight) => (
