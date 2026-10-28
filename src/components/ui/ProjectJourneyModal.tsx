@@ -14,31 +14,33 @@ type ProjectJourneyModalProps = {
   onClose: () => void;
 };
 
-const defaultChapters = [
-  {
-    label: "origin",
-    title: "Why this project started",
-    body: "Journey draft coming soon."
-  },
-  {
-    label: "build",
-    title: "The architecture turn",
-    body: "Journey draft coming soon."
-  },
-  {
-    label: "failure",
-    title: "The hardest failure mode",
-    body: "Journey draft coming soon."
-  },
-  {
-    label: "next",
-    title: "Where the project goes next",
-    body: "Journey draft coming soon."
-  }
-];
+const pendingPattern = /pending verification|verification pending|needs confirmation|waiting for|unconfirmed/i;
+
+function clean(items: string[]) {
+  return items.filter((item) => item && !pendingPattern.test(item));
+}
+
+// Journey copy is not written yet, so show only what is already in profile.ts
+// and was cross-checked against the project repos: problem, architecture, stack.
+// Anything still marked pending or unconfirmed is left out, and so are
+// roadmap ideas, so nothing unbuilt reads as shipped.
+function buildChapters(project: Project) {
+  const sections = [
+    { label: "problem", title: "The problem", lines: clean([project.problem]) },
+    { label: "architecture", title: "How it is built", lines: clean([project.architecture]) },
+    { label: "stack", title: "Tech stack", lines: [clean(project.techStack).join(", ")].filter(Boolean) }
+  ];
+  return sections
+    .filter((section) => section.lines.length > 0)
+    .map((section) => ({
+      label: section.label,
+      title: section.title,
+      body: section.lines.join(" ")
+    }));
+}
 
 export function ProjectJourneyModal({ project, onClose }: ProjectJourneyModalProps) {
-  const chapters = project?.journey?.chapters ?? defaultChapters;
+  const chapters = project?.journey?.chapters ?? (project ? buildChapters(project) : []);
 
   return (
     <Modal
@@ -53,15 +55,14 @@ export function ProjectJourneyModal({ project, onClose }: ProjectJourneyModalPro
       {project ? (
         <div className="space-y-5" data-testid={`journey-modal-${project.id}`}>
           <div className="flex flex-wrap items-center gap-2">
-            <StatusPill status={project.journey?.status ?? "journey.copy: pending"} />
+            <StatusPill status={project.journey?.status ?? project.status} />
             <Badge variant="amber">{project.name}</Badge>
             {project.duration ? <Badge>{project.duration}</Badge> : null}
           </div>
 
           <GlassCard className="p-5">
             <p className="text-base leading-7 text-null-muted">
-              {project.journey?.intro ??
-                "Journey draft coming soon. Detailed product narrative and technical design breakdown are currently being finalized."}
+              {project.journey?.intro ?? project.description}
             </p>
           </GlassCard>
 
@@ -82,7 +83,7 @@ export function ProjectJourneyModal({ project, onClose }: ProjectJourneyModalPro
           <div className="grid gap-4 lg:grid-cols-[1fr_0.8fr]">
             <GlassCard className="p-5">
               <p className="font-mono text-xs uppercase tracking-[0.18em] text-null-amber">
-                verified.signals
+                project.highlights
               </p>
               <div className="mt-4 grid gap-2">
                 {project.highlights.map((highlight) => (
@@ -130,8 +131,7 @@ export function ProjectJourneyModal({ project, onClose }: ProjectJourneyModalPro
           <TerminalText
             lines={[
               `tower.selected: ${project.buildingName}`,
-              "journey.editor: awaiting_pranav_copy",
-              "popup.status: functional"
+              `project.status: ${project.status}`
             ]}
             caret
           />

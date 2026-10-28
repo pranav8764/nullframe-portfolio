@@ -96,10 +96,10 @@ export const profile = {
   identity:
     "Backend-focused engineer building scalable systems, realtime infrastructure, AI workflows, and security platforms.",
   focus: "Backend. AI. Realtime. Security.",
-  email: "pranavrajoria1@gmail.com",
+  email: "pranav.devvv@gmail.com",
   phone: "+91 8764078632",
   github: "https://github.com/pranav8764",
-  resumePath: "/resume.pdf",
+  resumePath: "/1-Pranav_Rajoria_Resume.pdf",
   linkedin: "https://www.linkedin.com/in/pranav-singh-rajoria-05a407314/",
   leetcode: "https://leetcode.com/u/pranav8764/"
 };
@@ -599,7 +599,60 @@ export const projects: Project[] = [
   }
 ];
 
-export const experience: Experience = {
+export const experiences: Experience[] = [
+  {
+  company: "Edvora",
+  role: "Software Engineering Intern (Backend)",
+  location: "Remote",
+  duration: "August 2026 - Present",
+  status: "active",
+  mode: "multi-tenant LMS backend | NestJS, Prisma, PostgreSQL",
+  pipeline: ["NestJS API", "Better Auth guards", "5-role RBAC", "Prisma", "PostgreSQL RLS"],
+  proofMetrics: [
+    "tables 74 under RLS",
+    "endpoints 400+ guarded",
+    "jest-tests 3,000+",
+    "client-apps 4 (OpenAPI)"
+  ],
+  logs: [
+    "tenant.isolation: row-level security",
+    "access.default: deny",
+    "ci.rls_check: enforced",
+    "openapi.contracts: generated"
+  ],
+  details: [
+    "Isolated tenant data in a 74-table NestJS/Prisma LMS by forcing PostgreSQL Row-Level Security on every tenant table.",
+    "Enforced deny-by-default access on 400+ REST endpoints via Better Auth guards, DB-backed sessions, and 5-role RBAC.",
+    "Backed releases with 3,000+ Jest tests and a CI check failing any table without RLS; generated OpenAPI contracts for 4 client apps."
+  ]
+},
+  {
+  company: "SmileCloud Family Dental",
+  role: "Machine Learning Intern",
+  location: "Remote",
+  duration: "June 2026 - July 2026",
+  status: "shipped",
+  mode: "healthcare AI | Python, MLX, Transformers",
+  pipeline: ["SQaLe + OpenDental data", "Refusal samples", "125M SELECT-only model", "Sparse attention", "TurboQuant"],
+  proofMetrics: [
+    "refusal-accuracy 99.2%",
+    "latency ~1.5s end-to-end",
+    "vram ~45% lower",
+    "throughput ~30% higher"
+  ],
+  logs: [
+    "text2sql.model: 125M parameters",
+    "sql.policy: SELECT-only",
+    "unsafe.queries: rejected",
+    "inference: on-device"
+  ],
+  details: [
+    "Shipped a production Text-to-SQL assistant on a 125M-parameter SELECT-only model at ~1.5s end-to-end latency.",
+    "Rejected unsafe non-SELECT SQL with 99.2% accuracy by training on 512K+ SQaLe, 5K OpenDental, and 10K refusal samples.",
+    "Reduced on-device inference VRAM ~45% and raised throughput ~30% using sparse attention and TurboQuant quantization."
+  ]
+},
+  {
   company: "HireFT",
   role: "Software Engineering Intern",
   location: "Remote",
@@ -615,7 +668,10 @@ export const experience: Experience = {
     "Groq Resume / ATS Enrichment"
   ],
   proofMetrics: [
-    "500K+ records processed",
+    "listings/day ~350K",
+    "filter-latency ~8s -> ~500ms",
+    "resume-gen ~120s -> ~15s",
+    "records 500K+",
     "Worker-pool scraping pipeline",
     "Caffeine caching",
     "REST APIs",
@@ -633,13 +689,15 @@ export const experience: Experience = {
     "architecture: holding"
   ],
   details: [
-    "Built a concurrent job-scraping pipeline in Go that processed thousands of Workday ATS postings using worker pools, PostgreSQL deduplication, S3 storage, and SQS-driven enrichment queues.",
-    "Designed and shipped a Groq-powered resume-generation pipeline with a two-call flow: extracting job requirements first, then scoring and tailoring resumes for ATS compatibility.",
+    "Sustained ~350K job listings/day with a 20-worker concurrent Go scraping pipeline (Workday ATS postings) using batched PostgreSQL writes, deduplication, S3, and SQS-driven enrichment queues.",
+    "Cut job-filter latency from ~8s to ~500ms across 500K+ records using PostgreSQL GIN indexes and application-level caching.",
+    "Accelerated ATS resume generation from ~120s to ~15s via a 2-call Groq LLM pipeline: extract job requirements, then score and tailor the resume for ATS compatibility.",
     "Improved job-to-role matching accuracy across 500K+ records by adding staged role resolution with Caffeine caching and eliminating redundant database lookups.",
     "Built REST APIs for profile management, presigned S3 uploads, and auto-apply preferences.",
     "Added PDF hyperlink extraction using PDFBox with annotation and coordinate-based parsing."
   ]
-};
+}
+];
 
 export const skillModules: SkillModule[] = [
   {
@@ -744,7 +802,7 @@ export const education: Education[] = [
     institution: "ABV-IIITM Gwalior",
     program: "B.Tech Electrical and Electronics Engineering",
     score: "CGPA: 8.36",
-    timeline: "Aug 2024 - Aug 2028",
+    timeline: "Aug 2024 - Jun 2028",
     status: "in_progress",
     signal: "technical foundation detected"
   },
@@ -775,6 +833,15 @@ export const leadership: Leadership[] = [
     summary:
       "Spearheaded end-to-end operations for a national hackathon.",
     metrics: ["event_scale: 2000+ registrations", "finalists: 500+"]
+  },
+  {
+    module: "module.organizer: detected",
+    role: "Organizer, SIH 2026 Internal Hackathon",
+    institution: "ABV-IIITM Gwalior",
+    timeline: "SIH 2026",
+    summary:
+      "Led the team running the campus Smart India Hackathon qualifier.",
+    metrics: ["team_size: 15", "participants: 500+"]
   }
 ];
 
