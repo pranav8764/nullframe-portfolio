@@ -55,7 +55,7 @@ test("desktop cinematic city labels stay anchored and open journey modal", async
 
   await page.getByTestId("journey-hotspot-visync").click();
   await expect(page.getByTestId("journey-modal-visync")).toBeVisible();
-  await expect(page.getByText("Journey draft coming soon.").first()).toBeVisible();
+  await expect(page.getByText("The problem").first()).toBeVisible();
   await attachViewportScreenshot(page, testInfo, "03-city-journey-modal");
   await page.getByTestId("journey-modal-close").click();
 
@@ -78,6 +78,6 @@ test("mobile keeps the simplified journey card fallback responsive", async ({
 
   await page.getByTestId("mobile-journey-visync").click();
   await expect(page.getByTestId("journey-modal-visync")).toBeVisible();
-  await expect(page.getByText("Journey draft coming soon.").first()).toBeVisible();
+  await expect(page.getByText("The problem").first()).toBeVisible();
   await attachViewportScreenshot(page, testInfo, "mobile-journey-modal");
 });
