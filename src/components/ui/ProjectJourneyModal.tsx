@@ -14,7 +14,7 @@ type ProjectJourneyModalProps = {
   onClose: () => void;
 };
 
-const pendingPattern = /pending verification|needs confirmation|waiting for|unconfirmed/i;
+const pendingPattern = /pending verification|verification pending|needs confirmation|waiting for|unconfirmed/i;
 
 function clean(items: string[]) {
   return items.filter((item) => item && !pendingPattern.test(item));
