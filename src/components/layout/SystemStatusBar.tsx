@@ -34,8 +34,9 @@ export function SystemStatusBar({ progress, visible }: SystemStatusBarProps) {
       )}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 rounded-lg border border-null-border bg-black/78 px-3 py-2 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-null-muted shadow-2xl shadow-black backdrop-blur-xl sm:text-xs">
-        <span className="truncate">
-          {state.text} | scroll: {percent}%
+        <span className="whitespace-nowrap">
+          <span className="hidden sm:inline">{state.text} | </span>
+          scroll: {percent}%
         </span>
         <div className="flex items-center gap-4">
           <span className="hidden text-null-amber sm:inline">
