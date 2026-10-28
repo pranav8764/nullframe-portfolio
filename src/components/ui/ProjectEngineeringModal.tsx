@@ -175,7 +175,15 @@ export function ProjectEngineeringModal({
               </GlassCard>
             </div>
 
-            <HolographicArchitecture project={project} />
+            {/verification: pending/i.test(project.status) ? (
+<div className="architecture-grid flex min-h-[300px] items-center justify-center rounded-lg border border-null-border bg-black/45 p-6 text-center">
+<p className="font-mono text-xs uppercase tracking-[0.14em] text-null-muted">
+architecture.diagram: withheld until implementation is confirmed
+</p>
+</div>
+) : (
+<HolographicArchitecture project={project} />
+)}
 
             <GlassCard>
               <DataList title="Constraints" items={project.constraints} />
