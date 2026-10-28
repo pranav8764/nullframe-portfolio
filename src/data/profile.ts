@@ -99,7 +99,7 @@ export const profile = {
   email: "pranav.devvv@gmail.com",
   phone: "+91 8764078632",
   github: "https://github.com/pranav8764",
-  resumePath: "/resume.pdf",
+  resumePath: "/1-Pranav_Rajoria_Resume.pdf",
   linkedin: "https://www.linkedin.com/in/pranav-singh-rajoria-05a407314/",
   leetcode: "https://leetcode.com/u/pranav8764/"
 };
@@ -689,11 +689,9 @@ export const experiences: Experience[] = [
     "architecture: holding"
   ],
   details: [
-    "Sustained ~350K job listings/day with a 20-worker concurrent Go scraping pipeline using batched PostgreSQL writes, S3, and SQS.",
+    "Sustained ~350K job listings/day with a 20-worker concurrent Go scraping pipeline (Workday ATS postings) using batched PostgreSQL writes, deduplication, S3, and SQS-driven enrichment queues.",
     "Cut job-filter latency from ~8s to ~500ms across 500K+ records using PostgreSQL GIN indexes and application-level caching.",
-    "Accelerated ATS resume generation from ~120s to ~15s via a 2-call Groq LLM pipeline for JD extraction and content generation.",
-    "Built a concurrent job-scraping pipeline in Go that processed thousands of Workday ATS postings using worker pools, PostgreSQL deduplication, S3 storage, and SQS-driven enrichment queues.",
-    "Designed and shipped a Groq-powered resume-generation pipeline with a two-call flow: extracting job requirements first, then scoring and tailoring resumes for ATS compatibility.",
+    "Accelerated ATS resume generation from ~120s to ~15s via a 2-call Groq LLM pipeline: extract job requirements, then score and tailor the resume for ATS compatibility.",
     "Improved job-to-role matching accuracy across 500K+ records by adding staged role resolution with Caffeine caching and eliminating redundant database lookups.",
     "Built REST APIs for profile management, presigned S3 uploads, and auto-apply preferences.",
     "Added PDF hyperlink extraction using PDFBox with annotation and coordinate-based parsing."
